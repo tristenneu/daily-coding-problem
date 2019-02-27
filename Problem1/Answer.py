@@ -24,21 +24,17 @@ def calculateK(numberList, k):
                 eq = numberList[num] + addens[index]
 
                 if eq == k:
-                        print('found!')
                         nums.append(numberList[num])
                         nums.append(addens[index])
                         print(nums)
-                        return nums
+                        print('True')
+                        return True
                 else:
                         continue
     print(nums)
-    print(len(nums))
     if len(nums) == 0:
             print('False')
             return False
-    else:
-            print('True')
-            return True
     
 # calculateK([10, 15, 3, 7], 17)
 calculateK([11, 16, 8, 21], 27)
