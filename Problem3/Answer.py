@@ -14,7 +14,10 @@ node = Node('root', Node('left', Node('left.left')), Node('right'))
 assert deserialize(serialize(node)).left.left.val == 'left.left'
 '''
 
-# add serialize and deserialize to the class
+# traverse the tree
+# return a stringified version of the tree
+# build a tree
+# return the tree like structure
 
 class Node:
     def __init__(self, val, left=None, right=None):
