@@ -22,10 +22,10 @@ Implement car and cdr.
 # import re
 # from dill.source import getsource
 
-def cons(a, b):
-    def pair(f):
-        return f(a, b)
-    return pair
+# def cons(a, b):
+#     def pair(f):
+#         return f(a, b)
+#     return pair
 
 # def car(consFunction):
 #     # print(signature(consFunction))
