@@ -52,4 +52,4 @@ def XORLL():
 l = XORLL()
 for cnt in range(0, 4):
     l.add(cnt)
-print(l.get(2) == 2) # True
+print(l.get(2) == 2) #True
