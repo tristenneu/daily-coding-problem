@@ -11,3 +11,15 @@ For example, if N is 4, then there are 5 unique ways:
 
 What if, instead of being able to climb 1 or 2 steps at a time, you could climb any number from a set of positive integers X? For example, if X = {1, 3, 5}, you could climb 1, 3, or 5 steps at a time.
 '''
+
+# SOLUTION
+
+def staircase(n, X):
+    cache = [0 for _ in range(n + 1)]
+    cache[0] = 1
+    for i in range(n + 1):
+        cache[i] += sum(cache[i - x] for x in X if i - x > 0)
+        cache[i] += 1 if i in X else 0
+    return cache[-1]
+
+print(staircase(4, {1, 3, 5}))
