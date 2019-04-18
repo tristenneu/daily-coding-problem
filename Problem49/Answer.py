@@ -1,71 +1,29 @@
 '''
-Suppose an arithmetic expression is given as a binary tree. Each leaf is an integer and each internal node is one of '+', '−', '∗', or '/'.
+Given an array of numbers, find the maximum sum of any contiguous subarray of the array.
 
-Given the root to such a tree, write a function to evaluate it.
+For example, given the array [34, -50, 42, 14, -5, 86], the maximum sum would be 137, since we would take elements 42, 14, -5, and 86.
 
-For example, given the following tree:
+Given the array [-5, -1, -8, -9], the maximum sum would be 0, since we would not take any elements.
 
-    *
-   / \
-  +    +
- / \  / \
-3  2  4  5
-You should return 45, as it is (3 + 2) * (4 + 5).
+Do this in O(N) time.
 '''
 
 # SOLUTION
 
-# Python program to evaluate expression tree 
+# Python program to find maximum contiguous subarray 
 
-# Class to represent the nodes of syntax tree 
-class node: 
-	def __init__(self, value): 
-		self.left = None
-		self.data = value 
-		self.right = None
+# Function to find the maximum contiguous subarray 
+def max_subarray(arr):
+    max_ending = max_current = arr[0]
 
-# This function receives a node of the syntax tree 
-# and recursively evaluate it 
-def evaluateExpressionTree(root): 
+    for i in arr[1:]:
+        max_ending = max(i, max_ending + i)
+        max_current = max(max_current, max_ending)
 
-	# empty tree 
-	if root is None: 
-		return 0
+    return max_current
 
-	# leaf node 
-	if root.left is None and root.right is None: 
-		return int(root.data) 
+array1 = [34, -50, 42, 14, -5, 86]
+array2 = [-5, -1, -8, -9]
+print(max_subarray(array1)) # 137
+print(max_subarray(array2)) # 0
 
-	# evaluate left tree 
-	left_sum = evaluateExpressionTree(root.left) 
-
-	# evaluate right tree 
-	right_sum = evaluateExpressionTree(root.right) 
-
-	# check which operation to apply 
-	if root.data == '+': 
-		return left_sum + right_sum 
-	
-	elif root.data == '-': 
-		return left_sum - right_sum 
-	
-	elif root.data == '*': 
-		return left_sum * right_sum 
-	
-	else: 
-		return left_sum / right_sum 
-
-# Driver function to test above problem 
-if __name__=='__main__': 
-	
-	# creating a sample tree 
-	root = node('*') 
-	root.left = node('+') 
-	root.left.left = node('3') 
-	root.left.right = node('2') 
-	root.right = node('+') 
-	root.right.left = node('4') 
-	root.right.right = node('5') 
-	print(evaluateExpressionTree(root)) # 45
-
-# This code is contributed by Harshit Sidhwa 

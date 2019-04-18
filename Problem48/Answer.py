@@ -1,29 +1,58 @@
 '''
-Given an array of numbers, find the maximum sum of any contiguous subarray of the array.
+Given pre-order and in-order traversals of a binary tree, write a function to reconstruct the tree.
 
-For example, given the array [34, -50, 42, 14, -5, 86], the maximum sum would be 137, since we would take elements 42, 14, -5, and 86.
+For example, given the following preorder traversal:
 
-Given the array [-5, -1, -8, -9], the maximum sum would be 0, since we would not take any elements.
+[a, b, d, e, c, f, g]
 
-Do this in O(N) time.
+And the following inorder traversal:
+
+[d, b, e, a, f, c, g]
+
+You should return the following tree:
+
+    a
+   / \
+  b   c
+ / \ / \
+d  e f  g
 '''
 
-# SOLUTION
+# SOLUTION 
 
-# Python program to find maximum contiguous subarray 
+class Node:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
 
-# Function to find the maximum contiguous subarray 
-def max_subarray(arr):
-    max_ending = max_current = arr[0]
 
-    for i in arr[1:]:
-        max_ending = max(i, max_ending + i)
-        max_current = max(max_current, max_ending)
+def get_tree(preorder, inorder):
+    if not preorder or not inorder:
+        return None
 
-    return max_current
+    root_char = preorder[0]
+    if len(preorder) == 1:
+        return Node(root_char)
 
-array1 = [34, -50, 42, 14, -5, 86]
-array2 = [-5, -1, -8, -9]
-print(max_subarray(array1)) # 137
-print(max_subarray(array2)) # 0
+    root_node = Node(root_char)
+    for i, char in enumerate(inorder):
+        if char == root_char:
+            root_node.left = get_tree(
+                preorder=preorder[1:i+1], inorder=inorder[:i])
+            root_node.right = get_tree(
+                preorder=preorder[i+1:], inorder=inorder[i+1:])
 
+    return root_node
+
+inOrder = ['d', 'b', 'e', 'a', 'f', 'c', 'g'] 
+preOrder = ['a', 'b', 'd', 'e', 'c', 'f', 'g']
+tree = get_tree(preorder=preOrder, inorder=inOrder)
+
+print(tree.val) # 'a'
+print(tree.left.val) # 'b'
+print(tree.left.left.val) # 'd'
+print(tree.left.right.val) # 'e'
+print(tree.right.val) # 'c'
+print(tree.right.left.val) # 'f'
+print(tree.right.right.val) # 'g'
